@@ -77,6 +77,9 @@ class Scene:
             self._render_frame()
 
     def _render_frame(self):
+        if self.renderer is None:
+            self._init_renderer()
+            
         self.rasterizer.clear()
         
         def get_all(mobs):
