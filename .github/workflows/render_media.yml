@@ -46,9 +46,13 @@ jobs:
         run: |
           python headless_dispatch.py --scene ${{ github.event.inputs.scene }} --format ${{ github.event.inputs.format }}
 
-      - name: Upload Rendered Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.event.inputs.scene }}-render
-          path: '*.${{ github.event.inputs.format }}'
-          retention-days: 7
+      - name: Commit Media to Repository
+        run: |
+          mkdir -p outputs
+          mv *.${{ github.event.inputs.format }} outputs/
+          
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add outputs/
+          # Only commit if there are changes
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(media): auto-generate ${{ github.event.inputs.scene }} [skip ci]" && git push)
