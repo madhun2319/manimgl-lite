@@ -32,12 +32,12 @@ class LinePlotScene(Scene):
         # 4. Animation Sequence
         self.add(axes)
         
-        # Automatically "draws" the sine wave from left to right over 3 seconds
-        self.play(Write(graph, run_time=3.0))
+        # Plot the graph segment by segment over 99 frames (~3 seconds)
+        for segment in graph.submobjects:
+            self.add(segment)
+            self._render_frame()
         
-        # Hold the final graph on screen for 2 seconds
-        # Actually in this engine architecture we might need to manually wait or use an empty loop
-        # Wait 2 seconds (60 frames at 30 fps)
+        # Hold the final graph on screen for 2 seconds (60 frames)
         for _ in range(60):
             self._render_frame()
 
