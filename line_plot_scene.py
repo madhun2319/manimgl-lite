@@ -2,12 +2,13 @@ from core.scene import Scene
 from core.primitives import VGroup, Line
 from core.animation import Write
 import numpy as np
+import skia
 
 class LinePlotScene(Scene):
     def construct(self):
         # 1. Create a custom coordinate axis (simple X/Y lines)
-        x_axis = Line(start=np.array([-400, 0, 0]), end=np.array([400, 0, 0]), color=(255, 255, 255, 255), stroke_width=3)
-        y_axis = Line(start=np.array([0, -400, 0]), end=np.array([0, 400, 0]), color=(255, 255, 255, 255), stroke_width=3)
+        x_axis = Line(start=np.array([-400, 0, 0]), end=np.array([400, 0, 0]), color=skia.Color(255, 255, 255, 255), stroke_width=3)
+        y_axis = Line(start=np.array([0, -400, 0]), end=np.array([0, 400, 0]), color=skia.Color(255, 255, 255, 255), stroke_width=3)
         axes = VGroup(x_axis, y_axis)
         
         # 2. Generate mathematical points for a sine wave
@@ -23,7 +24,7 @@ class LinePlotScene(Scene):
             segment = Line(
                 start=points[i], 
                 end=points[i+1], 
-                color=(0, 200, 255, 255), # Neon blue line
+                color=skia.Color(0, 200, 255, 255), # Neon blue line
                 stroke_width=6
             )
             graph.add(segment)
