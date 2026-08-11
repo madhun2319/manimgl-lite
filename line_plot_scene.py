@@ -32,8 +32,21 @@ class LinePlotScene(Scene):
         # 4. Animation Sequence
         self.add(axes)
         
+        # --- AI Agent Voiceover Generation ---
+        import os
+        from gtts import gTTS
+        ai_script = "Notice how the blue sine wave smoothly oscillates between positive and negative peaks across the coordinate plane."
+        if not os.path.exists("ai_voiceover.wav"):
+            print("Generating AI Voiceover...")
+            tts = gTTS(text=ai_script, lang='en', tld='co.uk')
+            # gTTS saves as MP3, but our simple wave parser in core/audio.py prefers wav (though ffprobe can read mp3)
+            # We will save it as mp3 but ffprobe will handle it if we pass it as mp3! 
+            # Wait, our AudioTimeline uses wave.open() which fails on mp3, but it falls back to ffprobe which handles mp3 flawlessly.
+            tts.save("ai_voiceover.mp3")
+        
         # Add audio track at the current time
-        self.audio_tracks.append(("dummy_track.wav", self.frames_rendered / self.fps))
+        self.audio_tracks.append(("ai_voiceover.mp3", self.frames_rendered / self.fps))
+
         
         # Plot the graph segment by segment over 99 frames (~3 seconds)
         for segment in graph.submobjects:
