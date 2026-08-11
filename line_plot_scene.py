@@ -32,14 +32,23 @@ class LinePlotScene(Scene):
         # 4. Animation Sequence
         self.add(axes)
         
+        # Add audio track at the current time
+        self.audio_tracks.append(("dummy_track.wav", self.frames_rendered / self.fps))
+        
         # Plot the graph segment by segment over 99 frames (~3 seconds)
         for segment in graph.submobjects:
             self.add(segment)
             self._render_frame()
+            
+        # Add Mathematical Description
+        from core.text import TexMobject
+        formula = TexMobject("y = \\sin(x)", scale=5.0, position=(-200.0, 200.0), color=skia.ColorCYAN)
         
-        # Hold the final graph on screen for 2 seconds (60 frames)
-        for _ in range(60):
-            self._render_frame()
+        # Automatically draw the math text, synced with the audio timeline
+        self.play(Write(formula, run_time=2.0))
+        
+        # Hold the final graph on screen for 1 second (30 frames)
+        self.wait(1.0)
 
 if __name__ == "__main__":
     scene = LinePlotScene(output_file="line_plot_scene.gif", width=1080, height=1920, fps=30)
