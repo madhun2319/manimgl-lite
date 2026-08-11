@@ -55,7 +55,7 @@ class LinePlotScene(Scene):
             
         # Add Mathematical Description
         from core.text import TexMobject
-        formula = TexMobject("y = \\sin(x)", scale=5.0, position=(-200.0, 200.0), color=skia.ColorCYAN)
+        formula = TexMobject("$y = \\sin(x)$", scale=5.0, position=(-200.0, 200.0), color=skia.ColorCYAN)
         
         # Automatically draw the math text, synced with the audio timeline
         self.play(Write(formula, run_time=2.0))
