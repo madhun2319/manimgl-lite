@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "manimgl-lite"
+version = "1.0.0"
+description = "A bare-metal, high-performance Python animation micro-framework"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Developer", email = "dev@example.com" }
+]
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Scientific/Engineering :: Visualization",
+]
+dependencies = [
+    "skia-python>=87.0",
+    "numpy>=1.24.0",
+    "PyMuPDF>=1.23.0",
+    "imageio>=2.31.0",
+    "Pillow>=10.0.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/example/manimgl-lite"
+
+[project.scripts]
+anim-cli = "render_cli:main"
