@@ -32,7 +32,7 @@ jobs:
       - name: Install System Dependencies (FFmpeg & Tectonic)
         run: |
           sudo apt-get update
-          sudo apt-get install -y ffmpeg
+          sudo apt-get install -y ffmpeg libgl1 libegl1
           # Install Tectonic for LaTeX compilation if needed
           curl --proto '=https' --tlsv1.2 -fsSL https://drop-sh.fullyjustified.net | sh
           sudo mv tectonic /usr/local/bin/
