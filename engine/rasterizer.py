@@ -127,6 +127,17 @@ class Rasterizer:
                 )
                 stroke_paint.setStrokeCap(skia.Paint.kRound_Cap)
                 stroke_paint.setStrokeJoin(skia.Paint.kRound_Join)
+                
+                # Apply Cinematic Bloom (Glow)
+                glow_color = skia.ColorSetARGB(
+                    int(skia.ColorGetA(shape.color) * 0.6), # 60% opacity glow
+                    skia.ColorGetR(shape.color),
+                    skia.ColorGetG(shape.color),
+                    skia.ColorGetB(shape.color)
+                )
+                bloom_filter = skia.ImageFilters.DropShadow(0.0, 0.0, 5.0, 5.0, glow_color)
+                stroke_paint.setImageFilter(bloom_filter)
+                
                 self._canvas.drawPath(path, stroke_paint)
 
             # --- Fill pass (only when fill_color is set) ---
